@@ -1,0 +1,452 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <title>NanoRide Customers</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .logo {
+            width: 200px;
+            margin-bottom: 30px;
+        }
+
+        .profile img {
+            width: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            color: #333;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background-color: #f4f4f4;
+            border-radius: 8px;
+        }
+
+        .nav-icon {
+            width: 24px;
+            margin-right: 15px;
+        }
+
+        /* Sidebar collapse on mobile */
+        .sidebar-collapse {
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .sidebar {
+                width: 240px;
+                position: fixed;
+            }
+
+            .main-content {
+                margin-left: 220px;
+                padding: 20px;
+            }
+        }
+
+        /* For smaller screens, the sidebar should be full-width */
+        @media (max-width: 767px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        .profile img {
+            width: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .customer-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .customer-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .customer-card .card-header {
+            background-color: #ff4b4b;
+            color: #fff;
+        }
+
+        .customer-card .card-footer {
+            background-color: #f8f9fa;
+        }
+
+        .new-badge {
+            background-color: #ff4b4b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+        }
+
+        /* Profile picture section */
+        .navbar .profile-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .profile-section img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <div class="d-flex">
+            <button class="btn btn-primary d-lg-none m-2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
+                aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="collapse d-lg-block sidebar" id="sidebarMenu">
+                <h5 class="head">nanoORIDE</h5>
+                <div class="sidebar-header">
+                    <img src="{% static 'images/p1 (5).jpeg' %}" alt="Logo" class="logo">
+                </div>
+                <nav class="nav-menu">
+                    <div class="nav-item">
+                        <i class="bi bi-bar-chart-fill"></i>
+                        <span>&nbsp;&nbsp;Dashboard</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="bi bi-people-fill"></i>
+                        <span>&nbsp;&nbsp;Customers</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="bi bi-cart-fill"></i>
+                        <span>&nbsp;&nbsp;Orders</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="bi bi-bag-fill"></i>
+                        <span>&nbsp;&nbsp;Products</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="bi bi-credit-card-fill"></i>
+                        <span>&nbsp;&nbsp;Coupons</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="bi bi-gift-fill"></i>
+                        <span>&nbsp;&nbsp;Offers</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="bi bi-star"></i>
+                        <span>&nbsp;&nbsp;Brands</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="bi bi-grid-fill"></i>
+                        <span>&nbsp;&nbsp;Categories</span>
+                    </div>
+                    <div class="nav-item">
+                        <i class="bi bi-file-earmark-text"></i>
+                        <span>&nbsp;&nbsp;Report</span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+         
+    </div>
+
+        <!-- Main content -->
+        <div class="main-content">
+            <nav class="navbar navbar-expand-lg bg-light d-none d-lg-flex">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" style="justify-content: space-between;" id="navbarNav">
+                        <!-- Left-aligned search form -->
+                        <div class="me-auto d-flex">
+                            <form class="d-flex w-100">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+                        </div>
+        
+                        <!-- Profile Picture -->
+                        <div class="profile-section d-flex align-items-center">
+                            <img src="{% static 'images/profilepic.jpg' %}" alt="Profile Picture" class="rounded-circle" width="40">
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        
+            <div class="container mt-4 ad">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                    <h3>Categories</h3>
+                    <button class="btn btn-outline-primary mt-2"  data-bs-toggle="modal" data-bs-target="#createModal">Create New</button>
+                </div>
+        
+                <div class="table-wrapper">
+                    <!-- Filter and search -->
+                    <div class="row mb-3 g-3">
+                        <!-- Search bar on small screens full width -->
+                        <div class="col-12 col-md-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+                            </div>
+                        </div>
+                        <!-- Date range filter -->
+                        <div class="col-12 col-md-8 d-flex align-items-center flex-wrap">
+                            <input type="date" class="form-control w-auto me-2" placeholder="From" value="2024-01-01">
+                            <span class="mx-2">to</span>
+                            <input type="date" class="form-control w-auto me-2" placeholder="To" value="2024-12-01">
+                            <button class="btn btn-outline-secondary me-2">Filter</button>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Sort</button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Sort by Name</a></li>
+                                    <li><a class="dropdown-item" href="#">Sort by ID</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Table -->
+                    <div class="row">
+                        <!-- Category 1 -->
+                         
+                        <!-- Category 2 -->
+                        {% for i in categories %}
+    <div class="col-md-4 col-lg-3 col-sm-6 mb-4"style='margin:10px;' > <!-- Adjusted width for medium and large screens -->
+        <div class="category-card text-center p-3 shadow-sm" style="background-color:#fff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width:fit-content;">
+            <img src="{{ i.image.url }}" alt="{{ i.brand_name }}" class="category-image mb-2" width="200px" height="200px" style="object-fit: cover; border-radius: 8px;">
+            <div>
+                <strong>{{ i.brand_name }}</strong>
+            </div>
+            <div class="category-status">
+                {% if i.active %}
+                    <!-- Active status with green background (success) -->
+                    <span class="status-badge badge bg-success text-white">Active</span>
+                {% else %}
+                    <!-- Inactive status with red background (danger) -->
+                    <span class="status-badge badge bg-danger text-white">Inactive</span>
+                {% endif %}
+            </div>
+            <div class="category-status">
+                {% if i.status == 'listed' %}
+                    <!-- Listed status with green text -->
+                    <span class="badge" style="color: #28a745;">Listed</span>
+                {% elif i.status == 'dislisted' %}
+                    <!-- Dislisted status with red text -->
+                    <span class="badge" style="color: #dc3545;">Dislisted</span>
+                {% else %}
+                    <!-- Default status with gray text -->
+                    <span class="badge" style="color: #6c757d;">{{ i.status }}</span>
+                {% endif %}
+            </div>
+            <div class="mt-2 d-flex justify-content-center align-items-center gap-2">
+                <button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{i.id}}">
+                    Edit
+                </button>
+                <form method="POST" action="{% url 'catogerylist' i.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn {% if i.status == 'listed' %}btn-danger{% else %}btn-success{% endif %} btn-sm">
+                        {% if i.status == 'listed' %}Dislist{% else %}List{% endif %}
+                    </button>
+                </form>
+            </div>
+            
+            
+        </div>
+    </div>
+{% endfor %}
+
+                        <!-- Add more categories similarly -->
+                    </div>
+                
+                    <!-- Pagination and Rows per page controls -->
+                    <div class="pagination-controls d-flex justify-content-between align-items-center mt-4">
+                        <div>
+                            Rows per page:
+                            <select class="form-select d-inline-block w-auto">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                            </select>
+                        </div>
+                        <div>
+                            1–5 of 7
+                            <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-chevron-left"></i></button>
+                            <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+        <div id="createModal" class="modal {% if modal_open %}show{% endif %}" tabindex="-1" role="dialog" 
+                style="display: {% if modal_open %}block{% else %}none{% endif %};" 
+                aria-labelledby="createModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createModalLabel">Create New Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {% if error_message %}
+                        <div class="alert alert-danger">
+                        <strong>Error:</strong> {{ error_message }}
+                        </div>
+                          {% endif %}
+                        <form method='POST' action="{% url 'catogery'%}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- Category Image Input -->
+                            <div class="mb-3">
+                                <label for="createCategoryImage" class="form-label">Category Image</label>
+                                <input type="file" class="form-control" name='catogeryimage' id="createCategoryImage" accept="image/*" required>
+                            </div>
+                            <!-- Category Name Input -->
+                            <div class="mb-3">
+                                <label for="createCategoryName" class="form-label">Category Name</label>
+                                <input type="text" class="form-control" name='name' id="createCategoryName" placeholder="Enter category name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="createCategoryStatus" class="form-label">Category Status</label>
+                                <select class="form-control" name="status" id="createCategoryStatus">
+                                    <option value="True" selected>Active</option>
+                                    <option value="False">Inactive</option>
+                                    
+                                </select>
+                            </div>
+                            
+
+                      
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% for i in categories %}
+<div class="modal fade" id="editModal{{ i.id }}" tabindex="-1" aria-labelledby="editModalLabel{{ i.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel{{ i.id }}">Edit Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" enctype="multipart/form-data" action="{% url 'edit_catogery' i.id %} ">
+                    {% csrf_token %}
+                     <div class="mb-3 text-center">
+                        <img src="{{ i.image.url }}" alt="{{ i.brand_name }}" class="img-fluid" width="100" height="100">
+                    </div>
+                     <div class="mb-3">
+                        <label for="editCategoryName" class="form-label">Category Name</label>
+                        <input type="text" class="form-control" id="editCategoryName" name="brand_name" value="{{ i.brand_name }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editStatus" class="form-label">Status</label>
+                        <select class="form-select" id="editStatus" name="active">
+                            <option value="True" {% if i.active %}selected{% endif %}>Active</option>
+                            <option value="False" {% if not i.active %}selected{% endif %}>Inactive</option>
+                        </select>
+                    </div>
+                     <div class="mb-3">
+                        <label for="editCategoryImage" class="form-label">Change Category Image</label>
+                        <input type="file" class="form-control" id="editCategoryImage" name="image" accept="image/*">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        {% comment %} document.getElementById('sidebarToggle').addEventListener('click', function() {
+            document.getElementById('sidebarMenu').classList.toggle('show');
+        }); {% endcomment %}
+
+ 
+         
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if modal_open is set to true
+            {% if modal_open %}
+                const modalElement = document.getElementById('createModal');
+                if (modalElement) {
+                    const modal = new bootstrap.Modal(modalElement);
+                    modal.show();  // Show modal if modal_open is true
+                }
+            {% endif %}
+        });
+
+    </script>
+</body>
+
+</html>

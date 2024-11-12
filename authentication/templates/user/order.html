@@ -1,0 +1,176 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History</title>
+
+    <!-- External Fonts and Icon Library -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc;
+            padding: 50px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 30px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .order-history-table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+
+        .order-history-table th,
+        .order-history-table td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .order-history-table th {
+            background-color: #f1f1f1;
+            font-weight: 600;
+        }
+
+        .order-history-table td {
+            background-color: #fff;
+        }
+
+        .order-history-table .order-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .order-history-table .cancel-btn {
+            padding: 8px 15px;
+            background-color: #ff4d4d;
+            border: none;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .order-history-table .cancel-btn:hover {
+            background-color: #ff1a1a;
+        }
+
+        .order-status {
+            font-weight: 600;
+            color: #007bff;
+        }
+
+        .order-status.pending {
+            color: orange;
+        }
+
+        .order-status.completed {
+            color: green;
+        }
+
+        .order-status.cancelled {
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Order History</h1>
+    <a href="{% url 'home' %}" style="
+    display: inline-block;
+    padding: 10px 20px;
+    color: #007bff;
+    text-decoration: none;
+    border: 2px solid #007bff;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+" 
+onmouseover="this.style.backgroundColor='#007bff'; this.style.color='#ffffff';" 
+onmouseout="this.style.backgroundColor='transparent'; this.style.color='#007bff';">
+    Back to home
+</a>
+
+    <!-- Order Table -->
+    <table class="order-history-table">
+        <thead>
+            <tr>
+                <th>Product Image</th>
+                <th>Order ID</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                    {% if order_items %}
+                        {% for item in order_items %}
+                            <tr>
+                                <td class="order-item">
+                                    {% if item.product.additional_images.exists %}
+                                        <img src="{{ item.product.additional_images.first.image.url }}" alt="Product Image">
+                                    {% else %}
+                                        <img src="{% static 'images/default-product-image.jpg' %}" alt="Default Product Image">
+                                    {% endif %}
+                                </td>
+                                
+                                <td>#{{ item.order.tracking_number }}</td>
+                                <td>${{ item.subtotal_price }}</td>
+                                <td>
+                                    <span class="order-status {% if item.status == 'Delivered' %}completed{% elif item.status == 'Cancelled' %}cancelled{% else %}pending{% endif %}">
+                                        {{ item.status }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if item.status != 'Cancelled' and item.status != 'Delivered' %}
+                                        <form method="post" action="">
+                                            {% csrf_token %}
+                                            <button class="cancel-btn" type="submit">Cancel Order</button>
+                                        </form>
+                                    {% else %}
+                                        <button class="cancel-btn" disabled>Cancelled</button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5">No order items found for this order.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            
+
+        </tbody>
+    </table>
+    
+    
+</div>    
+</body>
+</html>

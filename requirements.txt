@@ -1,0 +1,79 @@
+
+
+Project Structure
+authentication/: Manages user login, signup, and authentication-related tasks.
+users/: Handles general user operations, like profile and dashboard management.
+products/: Manages product-related operations, including listing, detail views, and categories.
+cart_wishlist/: Handles cart and wishlist functionalities.
+orders/: Manages orders and checkout processes.
+payments/: Integrates payment processing and gateways.
+offers_coupons/: Manages discounts, offers, and coupons.
+reports/: Generates reports for admin users.
+static_pages/: Manages static pages like Contact Us, About, and error pages.
+wallet/: Handles wallet-related operations.
+
+
+
+
+1. Authentication App
+Purpose: Manage all user-related authentication processes.
+Features:
+User login, signup, logout
+Forgot password, reset password, and OTP verification for signup
+Profile management (e.g., change password, edit profile details)
+2. Users App
+Purpose: Handle general user-related features outside of authentication.
+Features:
+User dashboard/home
+Display product catalog and categories
+Product recommendations on the user home page
+Timeline Modules: Relevant to Modules 2, 3, and parts of 8.
+3. Products App
+Purpose: Manage all aspects related to products.
+Features:
+Product catalog (list, detail view)
+Admin product management (add, edit, view, remove)
+Product search (name, category, ID)
+Product categories and brand management
+Timeline Modules: Relevant to Modules 3 and 4.
+4. Cart and Wishlist App
+Purpose: Handle user interactions with products, such as adding items to cart or wishlist.
+Features:
+Add to cart, add to wishlist
+Cart management (add/remove products)
+Wishlist management
+Timeline Modules: Relevant to Module 3.
+5. Orders App
+Purpose: Manage all order-related functions.
+Features:
+Order creation and checkout
+Order history for users
+Admin order management (status updates, order details, invoice generation, cancellations)
+Timeline Modules: Relevant to Modules 6, 7, and 8.
+6. Payments App
+Purpose: Process payments and handle payment-related features.
+Features:
+Payment methods configuration and gateways integration
+Multi-step payment process for user checkout
+Timeline Modules: Relevant to Module 8.
+7. Offers and Coupons App
+Purpose: Manage discounts, coupons, and offers.
+Features:
+Admin offer and coupon creation
+User application of coupons during checkout
+Timeline Modules: Relevant to Module 9.
+8. Reports App
+Purpose: Generate and manage various reports for admin insights.
+Features:
+Sales and exportable reports by date and filters
+Timeline Modules: Relevant to Module 10.
+9. Static Pages App
+Purpose: Manage static or informational pages.
+Features:
+404 error page, success page
+Contact us form, about page
+Timeline Modules: Relevant to Module 11.
+10. Wallet App
+Purpose: Manage the wallet transactions for users.
+Features:
+Admin adds or manages wallet transactions (e.g., adding money to user wallets)
